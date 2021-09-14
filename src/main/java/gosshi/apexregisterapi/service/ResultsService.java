@@ -15,7 +15,11 @@ public class ResultsService {
     private static final Logger logger = LoggerFactory.getLogger(ResultsService.class);
     private ResultsRepository repository;
 
-    public ResultsList find(Long resultsId) {
+    public ResultsService(ResultsRepository repository){
+        this.repository = repository;
+    }
+
+    public ResultsList find() {
         ResultsList resultsList = new ResultsList();
         resultsList.setResults(this.repository.findAll());
         return resultsList;

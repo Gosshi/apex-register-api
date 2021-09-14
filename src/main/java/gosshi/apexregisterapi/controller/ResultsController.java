@@ -16,31 +16,32 @@ public class ResultsController {
     private static final Logger logger = LoggerFactory.getLogger(ResultsController.class);
     private ResultsService resultsService;
 
-    public ResultsController() {
+    public ResultsController(ResultsService resultsService) {
+        this.resultsService = resultsService;
 
     }
 
     @GetMapping(path = "", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResultsList find(@RequestParam(name = "resultsName", required = false) Long resultsId) {
-        return this.resultsService.find(resultsId);
+    public ResultsList find() {
+        return this.resultsService.find();
     }
 
-    @GetMapping(path = "/{resultsId}", produces = "application/json")
-    public Optional<Results> get(@PathVariable Long resultsId) {
+    @GetMapping(path = "get")
+    public Optional<Results> get(@RequestBody Long resultsId) {
         return this.resultsService.get(resultsId);
     }
 
-    @PostMapping(path = "", produces = "application/json")
+    @PostMapping(path = "add")
     public void add(@RequestBody Results results) {
         this.resultsService.add(results);
     }
 
-    @PatchMapping(path = "/{resultsId}", produces = "application/json")
-    public void set(@PathVariable Long resultsId, @RequestBody Results results) {
+    @PatchMapping(path = "update", produces = "application/json")
+    public void set(@RequestBody Results results) {
         this.resultsService.set(results);
     }
 
-    @DeleteMapping(path = "/{resultsId}", produces = "application/json")
+    @DeleteMapping(path = "delete/{resultId}")
     public void remove(@PathVariable Long resultsId) {
         this.resultsService.remove(resultsId);
     }

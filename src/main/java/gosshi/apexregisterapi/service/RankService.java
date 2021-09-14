@@ -15,7 +15,11 @@ public class RankService {
     private static final Logger logger = LoggerFactory.getLogger(RankService.class);
     private RankRepository repository;
 
-    public RankList find(String rankName) {
+    public RankService(RankRepository repository){
+        this.repository = repository;
+    }
+
+    public RankList find() {
         RankList rankList = new RankList();
         rankList.setRank(this.repository.findAll());
         return rankList;

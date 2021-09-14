@@ -1,29 +1,28 @@
 package gosshi.apexregisterapi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "ranked")
 public class Rank {
     @Id
-    @Column(name = "rank_id", nullable = false)
-    private Long rank_id;
+    @Column(name = "rankid", nullable = false)
+    Long rankId;
 
-    private String rankName;
+    @Column(name = "rankname")
+    String rankName;
 
-    private Boolean deleteFlag;
-
-    public Long getRank_id() {
-        return rank_id;
-    }
-
-    public void setRank_id(Long rank_id) {
-        this.rank_id = rank_id;
-    }
-
+    @Column(name = "deleteflag")
+    Boolean deleteFlag;
 
 }

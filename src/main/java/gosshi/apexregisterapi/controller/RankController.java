@@ -5,6 +5,7 @@ import gosshi.apexregisterapi.domain.RankList;
 import gosshi.apexregisterapi.service.RankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -15,30 +16,34 @@ public class RankController {
     private static final Logger logger = LoggerFactory.getLogger(RankController.class);
     private RankService rankService;
 
-    public RankController() {
+    public RankController(RankService rankService) {
+        this.rankService = rankService;
     }
 
-    @GetMapping(path = "", produces = "application/json")
-    public RankList find(@RequestParam(name = "rankName", required = false) String rankName) {
-        return this.rankService.find(rankName);
+    @GetMapping(path = "find", produces = MediaType.APPLICATION_JSON_VALUE)
+    public RankList find() {
+        return this.rankService.find();
     }
 
-    @GetMapping(path = "/{rankId}", produces = "application/json")
-    public Optional<Rank> get(@PathVariable Long rankId) {
+    @GetMapping(path = "get")
+    public Optional<Rank> get(@RequestParam Long rankId) {
         return this.rankService.get(rankId);
     }
 
-    @PostMapping(path = "", produces = "application/json")
-    public void add(@RequestBody Rank rank) {
+    @PostMapping(path = "add")
+    public void add(@RequestBody String rankName) {
+        Rank rank = new Rank();
+        rank.setRankName(rankName);
+        rank.setDeleteFlag(false);
         this.rankService.add(rank);
     }
 
-    @PatchMapping(path = "/{rankId}", produces = "application/json")
-    public void set(@PathVariable Long rankId, @RequestBody Rank rank) {
+    @PatchMapping(path = "update", produces = "application/json")
+    public void set(@RequestBody Rank rank) {
         this.rankService.set(rank);
     }
 
-    @DeleteMapping(path = "/{rankId}", produces = "application/json")
+    @DeleteMapping(path = "delete/{rankId}")
     public void remove(@PathVariable Long rankId) {
         this.rankService.remove(rankId);
     }

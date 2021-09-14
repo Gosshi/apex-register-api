@@ -1,48 +1,51 @@
 package gosshi.apexregisterapi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "results")
 public class Results {
     @Id
-    @Column(name = "results_id", nullable = false)
-    private Long results_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "resultsid", nullable = false)
+    Long resultsId;
 
+    Long damage;
 
-    private Long damage;
+    Long kills;
 
-    private Long kills;
+    Long assists;
 
-    private Long assists;
+    @Column(name = "rankpoints")
+    Long rankPoints;
 
-    private Long rankPoints;
+    @Column(name = "accountid")
+    Long accountId;
 
-    private Long accountId;
+    @Column(name = "modeid")
+    Long modeId;
 
-    private Long modeId;
+    @Column(name = "rankid")
+    Long rankId;
 
-    private Long rankId;
+    @Column(name = "legendsid")
+    Long legendsId;
 
-    private Long legendsId;
+    @Column(name = "badpointsid")
+    Long badPointsId;
 
-    private Long badPointsId;
+    @Column(name = "deleteflag")
+    boolean deleteFlag;
 
-    private boolean deleteFlag;
+    LocalDateTime datetime;
 
-    private LocalDateTime datetime;
-
-    public Long getResults_id() {
-        return results_id;
-    }
-
-    public void setResults_id(Long results_id) {
-        this.results_id = results_id;
-    }
 
 }
