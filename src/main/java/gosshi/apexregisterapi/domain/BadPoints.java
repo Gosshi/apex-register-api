@@ -1,18 +1,26 @@
 package gosshi.apexregisterapi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Table;
+import javax.persistence.*;
 
+@Entity
 @Data
-@Table(name = "BAD_POINTS")
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "bad_points")
 public class BadPoints {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "badpointsid")
     private Long badPointsId;
 
-    private String bad_PointsName;
+    @Column(name = "badpointsname")
+    private String badPointsName;
 
-    private Long accountId;
-
+    @Column(name = "deleteflag")
     private Boolean deleteFlag;
 }
