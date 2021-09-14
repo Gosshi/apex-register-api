@@ -16,7 +16,7 @@ import java.util.Optional;
 @RequestMapping("api/account")
 public class AccountController {
     private static final Logger logger = LoggerFactory.getLogger(AccountController.class);
-    private AccountService accountService;
+    private final AccountService accountService;
     private AccountRepository accountRepository;
 
     public AccountController(AccountService accountService) {

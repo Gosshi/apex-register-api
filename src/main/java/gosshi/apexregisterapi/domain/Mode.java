@@ -1,29 +1,26 @@
 package gosshi.apexregisterapi.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "game_mode")
 public class Mode {
     @Id
-    @Column(name = "mode_id", nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "modeid", nullable = false)
     private Long mode_id;
 
+    @Column(name = "modename")
     private String modeName;
 
+    @Column(name = "deleteflag")
     private Boolean deleteFlag;
-
-    public Long getMode_id() {
-        return mode_id;
-    }
-
-    public void setMode_id(Long mode_id) {
-        this.mode_id = mode_id;
-    }
-
 
 }

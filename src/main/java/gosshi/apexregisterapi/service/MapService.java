@@ -16,7 +16,11 @@ public class MapService {
     private static final Logger logger = LoggerFactory.getLogger(MapService.class);
     private MapRepository repository;
 
-    public MapList find(String mapName) {
+    public MapService(MapRepository repository){
+        this.repository = repository;
+    }
+
+    public MapList find() {
         MapList mapList = new MapList();
         mapList.setMap(this.repository.findAll());
         return mapList;

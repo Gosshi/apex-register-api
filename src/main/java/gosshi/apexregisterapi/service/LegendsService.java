@@ -16,7 +16,11 @@ public class LegendsService {
     private static final Logger logger = LoggerFactory.getLogger(LegendsService.class);
     private LegendsRepository repository;
 
-    public LegendsList find(String legendsName) {
+    public LegendsService(LegendsRepository repository){
+        this.repository = repository;
+    }
+
+    public LegendsList find() {
         LegendsList legendsList = new LegendsList();
         legendsList.setLegends(this.repository.findAll());
         return legendsList;

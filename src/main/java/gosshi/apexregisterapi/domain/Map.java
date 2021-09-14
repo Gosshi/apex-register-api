@@ -1,31 +1,27 @@
 package gosshi.apexregisterapi.domain;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "map")
 public class Map {
     @Id
-    @Column(name = "map_id", nullable = false)
-    private Long map_id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "mapid", nullable = false)
+    Long mapId;
 
+    @Column(name = "mapname")
+    String mapName;
 
-    private String mapName;
-
-    private Boolean deleteFlag;
-
-    public Long getMap_id() {
-        return map_id;
-    }
-
-    public void setMap_id(Long map_id) {
-        this.map_id = map_id;
-    }
-
+    @Column(name = "deleteflag")
+    Boolean deleteFlag;
 
 }

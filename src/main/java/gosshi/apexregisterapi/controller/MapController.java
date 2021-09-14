@@ -16,31 +16,35 @@ public class MapController {
     private static final Logger logger = LoggerFactory.getLogger(MapController.class);
     private MapService mapService;
 
-    public MapController() {
+    public MapController(MapService mapService) {
+        this.mapService = mapService;
     }
 
-    @GetMapping(path = "", produces = "application/json")
-    public MapList find(@RequestParam(name = "mapName", required = false) String mapName) {
-        return this.mapService.find(mapName);
+    @GetMapping(path = "find", produces = "application/json")
+    public MapList find() {
+        return this.mapService.find();
     }
 
 
-    @GetMapping(path = "/{mapId}", produces = "application/json")
-    public Optional<Map> get(@PathVariable Long mapId) {
+    @GetMapping(path = "get", produces = "application/json")
+    public Optional<Map> get(@RequestParam Long mapId) {
         return this.mapService.get(mapId);
     }
 
-    @PostMapping(path = "", produces = "application/json")
-    public void add(@RequestBody Map map) {
+    @PostMapping(path = "add", produces = "application/json")
+    public void add(@RequestBody String mapName) {
+        Map map = new Map();
+        map.setMapName(mapName);
+        map.setDeleteFlag(false);
         this.mapService.add(map);
     }
 
-    @PatchMapping(path = "/{mapId}", produces = "application/json")
-    public void set(@PathVariable Long mapId, @RequestBody Map map) {
+    @PatchMapping(path = "update", produces = "application/json")
+    public void set(@RequestBody Map map) {
         this.mapService.set(map);
     }
 
-    @DeleteMapping(path = "/{mapId}", produces = "application/json")
+    @DeleteMapping(path = "delete/{mapId}", produces = "application/json")
     public void remove(@PathVariable Long mapId) {
         this.mapService.remove(mapId);
     }

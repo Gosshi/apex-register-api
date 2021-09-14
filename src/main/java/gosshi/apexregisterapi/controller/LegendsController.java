@@ -5,6 +5,7 @@ import gosshi.apexregisterapi.domain.LegendsList;
 import gosshi.apexregisterapi.service.LegendsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -15,31 +16,34 @@ public class LegendsController {
     private static final Logger logger = LoggerFactory.getLogger(LegendsController.class);
     private LegendsService legendsService;
 
-    public LegendsController() {
-
+    public LegendsController(LegendsService legendsService) {
+        this.legendsService = legendsService;
     }
 
-    @GetMapping(path = "", produces = "application/json")
-    public LegendsList find(@RequestParam(name = "legendsName", required = false) String legendsName) {
-        return this.legendsService.find(legendsName);
+    @GetMapping(path = "find", produces = MediaType.APPLICATION_JSON_VALUE)
+    public LegendsList find() {
+        return this.legendsService.find();
     }
 
-    @GetMapping(path = "/{legendsId}", produces = "application/json")
-    public Optional<Legends> get(@PathVariable Long legendsId) {
+    @GetMapping(path = "get", produces = "application/json")
+    public Optional<Legends> get(@RequestParam Long legendsId) {
         return this.legendsService.get(legendsId);
     }
 
-    @PostMapping(path = "", produces = "application/json")
-    public void add(@RequestBody Legends legends) {
+    @PostMapping(path = "add", produces = "application/json")
+    public void add(@RequestParam String legendsName) {
+        Legends legends = new Legends();
+        legends.setLegendsName(legendsName);
+        legends.setDeleteFlag(false);
         this.legendsService.add(legends);
     }
 
-    @PatchMapping(path = "/{legendsId}", produces = "application/json")
-    public void set(@PathVariable String legendsId, @RequestBody Legends legends) {
+    @PatchMapping(path = "update", produces = "application/json")
+    public void set(@RequestBody Legends legends) {
         this.legendsService.set(legends);
     }
 
-    @DeleteMapping(path = "/{legendsId}", produces = "application/json")
+    @DeleteMapping(path = "delete/{legendsId}", produces = "application/json")
     public void remove(@PathVariable Long legendsId) {
         this.legendsService.remove(legendsId);
     }

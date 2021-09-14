@@ -15,7 +15,11 @@ public class ModeService {
     private static final Logger logger = LoggerFactory.getLogger(ModeService.class);
     private ModeRepository repository;
 
-    public ModeList find(String modeName) {
+    public ModeService(ModeRepository repository){
+        this.repository = repository;
+    }
+
+    public ModeList find() {
         ModeList modeList = new ModeList();
         modeList.setMode(this.repository.findAll());
         return modeList;
